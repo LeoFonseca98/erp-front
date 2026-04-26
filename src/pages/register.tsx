@@ -8,7 +8,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  async function handleRegister(e: React.FormEvent) {
+  async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     try {
