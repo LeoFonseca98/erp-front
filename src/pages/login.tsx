@@ -4,12 +4,12 @@ import type { LoginResponse } from "../types/auth";
 import { useNavigate } from "react-router-dom"; 
 
 function Login() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  async function handleLogin(e: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
     try {
@@ -23,8 +23,7 @@ function Login() {
       localStorage.setItem("token", token);
 
       navigate("/profile");
-      alert("Login feito!");
-    } catch (err) {
+    } catch {
       alert("Erro no login");
     }
   }
@@ -35,18 +34,37 @@ function Login() {
         <h1 className="text-2xl font-semibold mb-6 text-gray-700">
           Welcome Back!
         </h1>
-      <input className="w-full mb-6 p-3 bg-gray-100 outline-none rounded-lg" placeholder="Email" required onChange={(e) => setEmail(e.target.value)} />
-      <input
-        type="password"
-        className="w-full mb-6 p-3 bg-gray-100 outline-none rounded-lg"
-        placeholder="Senha"
-        required
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">Login</button>
-    </form>
+
+        <input
+          className="w-full mb-4 p-3 bg-gray-100 rounded-lg"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          type="password"
+          className="w-full mb-6 p-3 bg-gray-100 rounded-lg"
+          placeholder="Senha"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600">
+          Login
+        </button>
+
+        {/* 🔥 BOTÃO REGISTER */}
+        <p className="mt-4 text-sm text-gray-500">
+          Não tem conta?{" "}
+          <span
+            className="text-blue-500 cursor-pointer hover:underline"
+            onClick={() => navigate("/register")}
+          >
+            Criar conta
+          </span>
+        </p>
+      </form>
     </div>
-  ); 
+  );
 }
 
 export default Login;
