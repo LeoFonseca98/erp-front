@@ -3,6 +3,7 @@ import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,6 +14,7 @@ function Register() {
 
     try {
       await api.post("/auth/register", {
+        name,
         email,
         password,
       });
@@ -30,6 +32,12 @@ function Register() {
         <h1 className="text-2xl font-semibold mb-6 text-gray-700">
           Criar Conta
         </h1>
+
+        <input
+          className="w-full mb-4 p-3 bg-gray-100 rounded-lg"
+          placeholder="Nome"
+          onChange={(e) => setName(e.target.value)}
+        />
 
         <input
           className="w-full mb-4 p-3 bg-gray-100 rounded-lg"

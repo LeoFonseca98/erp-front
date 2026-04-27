@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import type { User } from "../types/auth";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [user, setUser] = useState<User | null>(null);
+   const navigate = useNavigate();
 
   useEffect(() => {
     async function loadUser() {
@@ -19,6 +21,7 @@ function Profile() {
         setUser(response.data);
       } catch {
         alert("Não autorizado");
+        navigate("/login");
       }
     }
 
@@ -27,7 +30,7 @@ function Profile() {
 
   function handleLogout() {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    navigate("/login", { replace: true });
   }
 
   if (!user) {
